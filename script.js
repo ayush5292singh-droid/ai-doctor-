@@ -270,3 +270,17 @@ document.getElementById("healthAnswer").innerHTML =
 }
 
 }
+function speakDisease(){
+
+let text =
+document.getElementById("healthAnswer").innerText;
+
+let speech =
+new SpeechSynthesisUtterance(text);
+
+speech.rate = 1;
+speech.pitch = 1.2;
+
+window.speechSynthesis.speak(speech);
+
+}
