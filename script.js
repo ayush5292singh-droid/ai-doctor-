@@ -100,3 +100,71 @@ document.getElementById("water").innerHTML=
 waterCount+" / 8 glasses";
 
 }
+function healthAdvice(){
+
+let message =
+"Great job! Keep tracking your water, sleep, exercise and medicines regularly. Stay consistent!";
+
+
+document.getElementById("advice").innerHTML =
+message;
+
+
+speakText(message);
+
+}
+
+
+
+function speakText(text){
+
+let speech =
+new SpeechSynthesisUtterance(text);
+
+
+speech.rate=1;
+
+speech.pitch=1.2;
+
+
+window.speechSynthesis.speak(speech);
+
+}
+
+
+
+function darkMode(){
+
+document.body.classList.toggle("dark");
+
+}
+
+
+
+// Save medicine data
+
+function saveData(){
+
+localStorage.setItem(
+"medicines",
+JSON.stringify(medicines)
+);
+
+}
+
+
+
+// Load medicine data
+
+let saved =
+localStorage.getItem("medicines");
+
+
+if(saved){
+
+medicines =
+JSON.parse(saved);
+
+showMedicines();
+
+}
