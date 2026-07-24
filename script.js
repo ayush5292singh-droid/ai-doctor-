@@ -1,22 +1,42 @@
+// ===============================
+// Health Tracker AI Robot
+// Complete script.js
+// ===============================
+
+
+// Robot Voice
+
+function speakText(text){
+
+let speech = new SpeechSynthesisUtterance(text);
+
+speech.rate = 1;
+speech.pitch = 1.2;
+
+window.speechSynthesis.speak(speech);
+
+}
+
+
+
 function speak(){
 
 let text =
 document.getElementById("message").innerText;
 
-
-let speech =
-new SpeechSynthesisUtterance(text);
-
-
-speech.rate = 1;
-
-speech.pitch = 1.2;
-
-
-window.speechSynthesis.speak(speech);
+speakText(text);
 
 }
+
+
+
+// ===============================
+// Medicine Tracker
+// ===============================
+
+
 let medicines = [];
+
 
 function addMedicine(){
 
@@ -29,7 +49,7 @@ document.getElementById("medicineTime").value;
 
 if(name==="" || time===""){
 
-alert("Enter medicine details");
+alert("Enter medicine name and time");
 
 return;
 
@@ -37,12 +57,15 @@ return;
 
 
 medicines.push({
+
 name:name,
 time:time
+
 });
 
 
 showMedicines();
+
 
 document.getElementById("medicineName").value="";
 document.getElementById("medicineTime").value="";
@@ -56,13 +79,15 @@ function showMedicines(){
 let list="";
 
 
-medicines.forEach(function(medicine,index){
+medicines.forEach(function(m,index){
+
 
 list +=
 
-"<p>💊 "+medicine.name+
-" ⏰ "+medicine.time+
+"<p>💊 "+m.name+
+" ⏰ "+m.time+
 " <button onclick='deleteMedicine("+index+")'>❌</button></p>";
+
 
 });
 
@@ -83,27 +108,41 @@ showMedicines();
 
 
 
-let waterCount=0;
+// ===============================
+// Water Tracker
+// ===============================
+
+
+let waterCount = 0;
 
 
 function addWater(){
 
-if(waterCount<8){
+if(waterCount < 8){
 
 waterCount++;
 
 }
 
 
-document.getElementById("water").innerHTML=
+document.getElementById("water").innerHTML =
 
 waterCount+" / 8 glasses";
 
+
 }
+
+
+
+// ===============================
+// Health Advice
+// ===============================
+
+
 function healthAdvice(){
 
 let message =
-"Great job! Keep tracking your water, sleep, exercise and medicines regularly. Stay consistent!";
+"Remember to maintain healthy habits, drink enough water, sleep well and follow your healthcare provider's advice.";
 
 
 document.getElementById("advice").innerHTML =
@@ -116,122 +155,53 @@ speakText(message);
 
 
 
-function speakText(text){
-
-let speech =
-new SpeechSynthesisUtterance(text);
-
-
-speech.rate=1;
-
-speech.pitch=1.2;
+// ===============================
+// Disease Information Robot
+// ===============================
 
 
-window.speechSynthesis.speak(speech);
-
-}
-
-
-
-function darkMode(){
-
-document.body.classList.toggle("dark");
-
-}
-
-
-
-// Save medicine data
-
-function saveData(){
-
-localStorage.setItem(
-"medicines",
-JSON.stringify(medicines)
-);
-
-}
-
-
-
-// Load medicine data
-
-let saved =
-localStorage.getItem("medicines");
-
-
-if(saved){
-
-medicines =
-JSON.parse(saved);
-
-showMedicines();
-
-}
 let healthData = {
 
+
 fever:
-"Fever: Rest, drink enough fluids and monitor your temperature. Seek medical advice if it is severe, persistent, or worrying.",
+"Fever: Rest, drink enough fluids and monitor your temperature. Seek medical advice if it is severe or continues.",
 
 
 cold:
-"Cold: Rest, stay hydrated and maintain hygiene. Consult a healthcare professional if symptoms become severe.",
+"Cold: Rest, stay hydrated and maintain hygiene.",
 
 
 cough:
-"Cough: Drink enough fluids and avoid irritants like smoke. Get medical advice if it continues or becomes serious.",
+"Cough: Drink fluids and avoid irritants. Seek advice if it continues.",
 
 
 headache:
-"Headache: Rest, manage stress and stay hydrated. Seek medical advice for frequent or severe headaches.",
+"Headache: Rest, stay hydrated and manage stress. Get medical advice for frequent severe headaches.",
 
 
 allergy:
-"Allergy: Avoid known triggers and monitor symptoms. Consult a healthcare professional for proper evaluation.",
+"Allergy: Avoid known triggers and ask a healthcare professional for proper guidance.",
 
 
 asthma:
-"Asthma: Follow your doctor's plan and avoid triggers. Seek help if breathing problems become serious.",
+"Asthma: Avoid triggers and follow your doctor's plan.",
 
 
 diabetes:
-"Diabetes: Healthy eating, activity and regular medical checkups are important. Follow your healthcare provider's advice.",
+"Diabetes: Healthy habits and regular medical checkups are important.",
 
 
 migraine:
-"Migraine: Rest in a quiet place and track triggers. Consult a doctor for repeated or severe episodes.",
+"Migraine: Rest in a quiet place and track possible triggers.",
 
 
 dehydration:
-"Dehydration: Drink enough fluids and watch for signs of worsening condition.",
+"Dehydration: Drink enough fluids and watch for worsening symptoms.",
 
 
 anemia:
-"Anemia: A balanced diet and medical guidance are important. Testing may be needed to find the cause.",
+"Anemia: A balanced diet and medical guidance are important."
 
-
-sprain:
-"Sprain: Rest the affected area and avoid activities that increase pain. Get medical advice for serious injuries.",
-
-
-sorethroat:
-"Sore throat: Drink fluids and rest your voice. Seek advice if symptoms are severe or persistent.",
-
-
-stomachache:
-"Stomach ache: Rest and stay hydrated. Get medical help for severe or ongoing pain.",
-
-
-flu:
-"Flu: Rest, drink fluids and monitor symptoms. Seek medical advice if symptoms are concerning.",
-
-
-foodpoisoning:
-"Food poisoning: Stay hydrated and seek medical help if symptoms are severe.",
-
-
-eyeinfection:
-"Eye problems need proper evaluation. Avoid touching eyes and seek professional advice if symptoms continue."
 
 };
 
@@ -239,19 +209,36 @@ eyeinfection:
 
 function healthSearch(){
 
-let question =
-document.getElementById("healthQuestion").value
-.toLowerCase()
-.replaceAll(" ","");
+
+let input =
+
+document.getElementById("healthQuestion").value.toLowerCase();
 
 
-let answer =
-healthData[question];
+let answer = "I don't have information about this yet. Please consult a healthcare professional for medical advice.";
 
 
-if(answer){
+
+for(let disease in healthData){
+
+
+if(input.includes(disease)){
+
+
+answer = healthData[disease];
+
+break;
+
+
+}
+
+
+}
+
+
 
 document.getElementById("healthAnswer").innerHTML =
+
 "🤖 "+answer;
 
 
@@ -260,62 +247,15 @@ speakText(answer);
 
 }
 
-else{
 
 
-document.getElementById("healthAnswer").innerHTML =
-
-"🤖 I don't have information about this yet. Please consult a healthcare professional for reliable advice.";
-
-}
-
-}
-function speakDisease(){
-
-let text =
-document.getElementById("healthAnswer").innerText;
-
-let speech =
-new SpeechSynthesisUtterance(text);
-
-speech.rate = 1;
-speech.pitch = 1.2;
-
-window.speechSynthesis.speak(speech);
-
-}
-function healthSearch(){
-
-let q = document.getElementById("healthQuestion").value.toLowerCase();
-
-let answer = "";
-
-if(q.includes("fever")){
-
-answer = "For fever: rest, drink enough fluids and monitor your condition.";
-
-}
-
-else if(q.includes("cold")){
-
-answer = "For cold: take rest, stay hydrated and maintain hygiene.";
-
-}
-
-else if(q.includes("cough")){
-
-answer = "For cough: drink fluids and avoid irritants.";
-
-}
-
-else{
-
-answer = "I don't have information about this yet. Please ask about fever, cold or cough.";
-
-}
+// ===============================
+// Dark Mode
+// ===============================
 
 
-document.getElementById("healthAnswer").innerHTML =
-"🤖 " + answer;
+function darkMode(){
+
+document.body.classList.toggle("dark");
 
 }
