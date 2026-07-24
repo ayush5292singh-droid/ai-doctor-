@@ -284,3 +284,38 @@ speech.pitch = 1.2;
 window.speechSynthesis.speak(speech);
 
 }
+function healthSearch(){
+
+let q = document.getElementById("healthQuestion").value.toLowerCase();
+
+let answer = "";
+
+if(q.includes("fever")){
+
+answer = "For fever: rest, drink enough fluids and monitor your condition.";
+
+}
+
+else if(q.includes("cold")){
+
+answer = "For cold: take rest, stay hydrated and maintain hygiene.";
+
+}
+
+else if(q.includes("cough")){
+
+answer = "For cough: drink fluids and avoid irritants.";
+
+}
+
+else{
+
+answer = "I don't have information about this yet. Please ask about fever, cold or cough.";
+
+}
+
+
+document.getElementById("healthAnswer").innerHTML =
+"🤖 " + answer;
+
+}
