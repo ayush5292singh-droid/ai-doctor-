@@ -95,3 +95,26 @@ background:#2563eb;
 color:white;
 
 }
+.dark{
+
+background:#111827;
+
+}
+
+
+.dark .app{
+
+background:#1f2937;
+
+color:white;
+
+}
+
+
+.dark .card{
+
+background:#374151;
+
+color:white;
+
+}
