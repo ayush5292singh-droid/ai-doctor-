@@ -34,9 +34,19 @@ Hello! I am your health assistant.
 
 <div class="card">
 
-<h3>💊 Medicine</h3>
+<h3>💊 Medicine Tracker</h3>
 
-<p>Medicine tracker coming soon</p>
+<input id="medicineName" placeholder="Medicine name">
+
+<input id="medicineTime" placeholder="Time (Example: 8 AM)">
+
+<button onclick="addMedicine()">
+➕ Add Medicine
+</button>
+
+<div id="medicineList">
+No medicines added
+</div>
 
 </div>
 
@@ -44,9 +54,15 @@ Hello! I am your health assistant.
 
 <div class="card">
 
-<h3>💧 Water</h3>
+<h3>💧 Water Tracker</h3>
 
-<p>0 / 8 glasses</p>
+<p id="water">
+0 / 8 glasses
+</p>
+
+<button onclick="addWater()">
++ Water
+</button>
 
 </div>
 
